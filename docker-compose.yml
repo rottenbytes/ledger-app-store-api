@@ -14,12 +14,6 @@ services:
     build: .
     env_file:
       - docker.env
-    command:
-      - /bin/sh
-      - -c
-      - |
-        pipenv run python manage.py migrate
-        pipenv run python manage.py runserver 0.0.0.0:8000
     image: testbuild
     ports:
       - "8000:8000"

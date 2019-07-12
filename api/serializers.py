@@ -115,6 +115,8 @@ class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
             'firmware',
             'firmware_key',
             'hash',
+            'distribution_ratio',
+            'exclude_by_default',
             'osu_versions',
             'date_creation',
             'date_last_modified',

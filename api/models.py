@@ -38,7 +38,7 @@ class U2FKey(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     last_used_at = models.DateTimeField(null=True)
-    publicKey = models.CharField(unique=True,max_length=255)
+    publicKey = models.CharField(unique=True, max_length=255)
     keyHandle = models.TextField()
     appId = models.TextField()
     version = models.CharField(max_length=255, default='U2F_V2')
@@ -89,7 +89,8 @@ class SeFirmwareFinalVersion(Resource):
     display_name = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
     perso = models.CharField(max_length=255, null=True, blank=True)
-
+    distribution_ratio = models.IntegerField(null=True, blank=True)
+    exclude_by_default = models.BooleanField(default=False, blank=True)
     firmware = models.CharField(max_length=255, null=True, blank=True)
     firmware_key = models.CharField(
         max_length=255,
