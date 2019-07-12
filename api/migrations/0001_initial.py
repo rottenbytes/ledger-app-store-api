@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Application',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -30,22 +31,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ApplicationVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
                 ('date_last_modified', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
-                ('display_name', models.CharField(blank=True, max_length=255, null=True)),
+                ('display_name', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('icon', models.CharField(blank=True, max_length=255, null=True)),
                 ('notes', models.TextField(blank=True, null=True)),
                 ('hash', models.CharField(blank=True, max_length=255, null=True)),
                 ('perso', models.CharField(blank=True, max_length=255, null=True)),
                 ('firmware', models.CharField(blank=True, max_length=255, null=True)),
-                ('firmware_key', models.CharField(blank=True, max_length=255, null=True)),
+                ('firmware_key', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('delete', models.CharField(blank=True, max_length=255, null=True)),
-                ('delete_key', models.CharField(blank=True, max_length=255, null=True)),
-                ('app', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='application_versions', to='api.Application')),
+                ('delete_key', models.CharField(
+                    blank=True, max_length=255, null=True)),
+                ('app', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                          related_name='application_versions', to='api.Application')),
             ],
             options={
                 'abstract': False,
@@ -54,7 +60,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -67,7 +74,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Device',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -80,14 +88,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DeviceVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
                 ('date_last_modified', models.DateTimeField(auto_now=True)),
-                ('display_name', models.CharField(blank=True, max_length=255, null=True)),
-                ('target_id', models.CharField(blank=True, max_length=255, null=True)),
-                ('device', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='device_versions', to='api.Device')),
+                ('display_name', models.CharField(
+                    blank=True, max_length=255, null=True)),
+                ('target_id', models.CharField(
+                    blank=True, max_length=255, null=True)),
+                ('device', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                             related_name='device_versions', to='api.Device')),
             ],
             options={
                 'abstract': False,
@@ -96,7 +108,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Mcu',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -109,14 +122,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='McuVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
                 ('date_last_modified', models.DateTimeField(auto_now=True)),
                 ('from_bootloader_version', models.CharField(max_length=255)),
-                ('device_versions', models.ManyToManyField(blank=True, related_name='mcu_versions', to='api.DeviceVersion')),
-                ('mcu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='mcu_versions', to='api.Mcu')),
+                ('device_versions', models.ManyToManyField(blank=True,
+                                                           related_name='mcu_versions', to='api.DeviceVersion')),
+                ('mcu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                          related_name='mcu_versions', to='api.Mcu')),
             ],
             options={
                 'abstract': False,
@@ -125,7 +141,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Provider',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -135,7 +152,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Publisher',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -149,7 +167,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SeFirmware',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
@@ -163,21 +182,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SeFirmwareFinalVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
                 ('date_last_modified', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
-                ('display_name', models.CharField(blank=True, max_length=255, null=True)),
+                ('display_name', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('notes', models.TextField(blank=True, null=True)),
                 ('perso', models.CharField(blank=True, max_length=255, null=True)),
                 ('firmware', models.CharField(blank=True, max_length=255, null=True)),
-                ('firmware_key', models.CharField(blank=True, max_length=255, null=True)),
+                ('firmware_key', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('hash', models.CharField(blank=True, max_length=255, null=True)),
-                ('device_versions', models.ManyToManyField(blank=True, related_name='se_firmware_final_versions', to='api.DeviceVersion')),
+                ('device_versions', models.ManyToManyField(
+                    blank=True, related_name='se_firmware_final_versions', to='api.DeviceVersion')),
                 ('providers', models.ManyToManyField(to='api.Provider')),
-                ('se_firmware', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='se_firmware_final_versions', to='api.SeFirmware')),
+                ('se_firmware', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE,
+                                                  related_name='se_firmware_final_versions', to='api.SeFirmware')),
             ],
             options={
                 'abstract': False,
@@ -186,20 +210,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SeFirmwareOSUVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('date_creation', models.DateTimeField(auto_now_add=True)),
                 ('date_last_modified', models.DateTimeField(auto_now=True)),
-                ('display_name', models.CharField(blank=True, max_length=255, null=True)),
+                ('display_name', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('notes', models.TextField(blank=True, null=True)),
                 ('perso', models.CharField(blank=True, max_length=255, null=True)),
                 ('firmware', models.CharField(blank=True, max_length=255, null=True)),
-                ('firmware_key', models.CharField(blank=True, max_length=255, null=True)),
+                ('firmware_key', models.CharField(
+                    blank=True, max_length=255, null=True)),
                 ('hash', models.CharField(blank=True, max_length=255, null=True)),
-                ('device_versions', models.ManyToManyField(blank=True, related_name='osu_versions', to='api.DeviceVersion')),
-                ('next_se_firmware_final_version', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='osu_versions', to='api.SeFirmwareFinalVersion')),
-                ('previous_se_firmware_final_versions', models.ManyToManyField(blank=True, related_name='next_se_firmware_osu_versions', to='api.SeFirmwareFinalVersion')),
+                ('device_versions', models.ManyToManyField(blank=True,
+                                                           related_name='osu_versions', to='api.DeviceVersion')),
+                ('next_se_firmware_final_version', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.CASCADE, related_name='osu_versions', to='api.SeFirmwareFinalVersion')),
+                ('previous_se_firmware_final_versions', models.ManyToManyField(
+                    blank=True, related_name='next_se_firmware_osu_versions', to='api.SeFirmwareFinalVersion')),
                 ('providers', models.ManyToManyField(to='api.Provider')),
             ],
             options={
@@ -209,30 +239,36 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='U2FAuthenticationRequest',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.TextField(null=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='u2f_authentication_request', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='u2f_authentication_request', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='U2FKey',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('last_used_at', models.DateTimeField(null=True)),
                 ('publicKey', models.CharField(max_length=255, unique=True)),
                 ('keyHandle', models.TextField()),
                 ('appId', models.TextField()),
                 ('version', models.CharField(default='U2F_V2', max_length=255)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='u2f_key', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='u2f_key', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='U2FRegistrationRequest',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.TextField(null=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='u2f_registration_request', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='u2f_registration_request', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
@@ -243,7 +279,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mcuversion',
             name='se_firmware_final_versions',
-            field=models.ManyToManyField(blank=True, related_name='mcu_versions', to='api.SeFirmwareFinalVersion'),
+            field=models.ManyToManyField(
+                blank=True, related_name='mcu_versions', to='api.SeFirmwareFinalVersion'),
         ),
         migrations.AddField(
             model_name='mcu',
@@ -268,7 +305,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='applicationversion',
             name='device_versions',
-            field=models.ManyToManyField(blank=True, related_name='application_versions', to='api.DeviceVersion'),
+            field=models.ManyToManyField(
+                blank=True, related_name='application_versions', to='api.DeviceVersion'),
         ),
         migrations.AddField(
             model_name='applicationversion',
@@ -278,12 +316,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='applicationversion',
             name='se_firmware_final_versions',
-            field=models.ManyToManyField(blank=True, related_name='application_versions', to='api.SeFirmwareFinalVersion'),
+            field=models.ManyToManyField(
+                blank=True, related_name='application_versions', to='api.SeFirmwareFinalVersion'),
         ),
         migrations.AddField(
             model_name='application',
             name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='applications', to='api.Category'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                    related_name='applications', to='api.Category'),
         ),
         migrations.AddField(
             model_name='application',
@@ -293,6 +333,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='application',
             name='publisher',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='api.Publisher'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='applications', to='api.Publisher'),
         ),
     ]
