@@ -16,6 +16,8 @@ fire = "*"
 semver = "*"
 django-cors-headers = "*"
 mysqlclient = "*"
+envs = "*"
+psycopg2 = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

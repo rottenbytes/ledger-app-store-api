@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from envs import env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -102,8 +103,12 @@ WSGI_APPLICATION = 'ledger_app_store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': env('DATABASE_ENGINE','django.db.backends.sqlite3'),
+        'NAME': env('DATABASE_NAME',os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD':env('DATABASE_PASSWORD'),
+        'HOST':env('DATABASE_HOST'),
+        'PORT':env('DATABASE_PORT')
     }
 }
 
