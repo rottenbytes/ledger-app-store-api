@@ -1,0 +1,11 @@
+version: "3"
+services:
+  db:
+    image: circleci/postgres:latest
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_DB=circle_test
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"

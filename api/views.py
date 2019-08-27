@@ -441,6 +441,17 @@ def finish_login(request):
     return Response({"token": token.key})
 
 
+@api_view(["GET"])
+def health_check(request):
+    try:
+        mcu_ver = Provider.objects.all()
+    except:
+        return Response("KO", status=500)
+
+    serializer = McuVersionSerializer(mcu_ver)
+    return Response("OK", status=200)
+
+
 # @api_view(["GET"])
 # def get_supported_currencies(request):
 #     try:
