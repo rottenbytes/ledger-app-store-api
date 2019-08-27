@@ -8,14 +8,15 @@ name = "pypi"
 "autopep8" = "*"
 
 [packages]
-django = "*"
+django = ">=2.1.10"
 djangorestframework = "*"
 django-rest-swagger = "*"
 "python-u2flib-server" = "*"
 fire = "*"
 semver = "*"
 django-cors-headers = "*"
-mysqlclient = "*"
+envs = "*"
+psycopg2 = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

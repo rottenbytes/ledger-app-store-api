@@ -58,4 +58,5 @@ urlpatterns = [
          views.get_osu_version),
     # PUBLIC CALLS
     # path('get_supported_currencies', views.get_supported_currencies),
+    path('_health', views.health_check)
 ]
