@@ -29,8 +29,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView, exception_handler
 from u2flib_server import u2f
 
-
 ############ APPLICATIONS VIEWS #################
+
 
 class ApplicationView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -174,6 +174,8 @@ def get_osu_version(request):
 @api_view(["POST"])
 def get_latest(request):
     hide_153 = request.query_params.get('livecommonversion', None) is None
+    salt = request.query_params.get('salt', None)
+    debug = request.query_params.get('debug', False)
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
     current_device_version_id = request.data.get('device_version')
@@ -191,19 +193,29 @@ def get_latest(request):
                 next_se_firmware_final_version__version__lte=66819)
     except SeFirmwareOSUVersion.DoesNotExist:
         None
-    if not next_se_firmware_osu_versions:
-        return Response({"se_firmware_osu_version": {}, "result": "null"})
 
     res_osu_ver = None
-    for osu_ver in next_se_firmware_osu_versions:
-        if res_osu_ver is not None:
-            if osu_ver.next_se_firmware_final_version.version >= res_osu_ver.next_se_firmware_final_version.version:
+    if next_se_firmware_osu_versions:
+        for osu_ver in next_se_firmware_osu_versions:
+            while True:
+                if res_osu_ver is not None:
+                    if osu_ver.next_se_firmware_final_version.version <= res_osu_ver.next_se_firmware_final_version.version:
+                        break
+                if debug is not None:
+                    if osu_ver.next_se_firmware_final_version.distribution_ratio:
+                        if salt:
+                            user_score = abs(
+                                hash(osu_ver.next_se_firmware_final_version.name+salt)) % 1000
+                            if osu_ver.next_se_firmware_final_version.distribution_ratio > user_score:
+                                break
+                        elif osu_ver.next_se_firmware_final_version.exclude_by_default:
+                            break
                 res_osu_ver = osu_ver
-        else:
-            res_osu_ver = osu_ver
-
-    serializer = SeFirmwareOSUVersionSerializer(res_osu_ver)
-    return Response({"se_firmware_osu_version": serializer.data, "result": "success"})
+                break
+        if res_osu_ver:
+            serializer = SeFirmwareOSUVersionSerializer(res_osu_ver)
+            return Response({"se_firmware_osu_version": serializer.data, "result": "success"})
+    return Response({"se_firmware_osu_version": {}, "result": "null"})
 
 
 ############ DEVICES VIEWS #################
