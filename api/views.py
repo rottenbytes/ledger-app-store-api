@@ -173,7 +173,10 @@ def get_osu_version(request):
 
 @api_view(["POST"])
 def get_latest(request):
-    hide_153 = request.query_params.get('livecommonversion', None) is None
+    livecommonversion = request.query_params.get('livecommonversion', None)
+    hide_153 = livecommonversion is None
+    # LL-1996: before live-common 8.x, Ledger Live is not able to handle firmware update >=1.6.0
+    hide_160 = livecommonversion is None or int(livecommonversion.split(".")[0]) < 8
     salt = request.query_params.get('salt', None)
     debug = request.query_params.get('debug', False)
     current_se_firmware_final_version_id = request.data.get(
@@ -191,6 +194,8 @@ def get_latest(request):
         if hide_153:
             next_se_firmware_osu_versions = next_se_firmware_osu_versions.filter(
                 next_se_firmware_final_version__version__lte=66819)
+        if hide_160:
+            next_se_firmware_osu_versions = [firmware for firmware in next_se_firmware_osu_versions if not firmware.name.startswith('1.6.0')]
     except SeFirmwareOSUVersion.DoesNotExist:
         None
 
