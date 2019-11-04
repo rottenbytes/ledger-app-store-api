@@ -124,7 +124,6 @@ class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
             'mcu_versions',
             'application_versions',
             'providers',
-            'blocks'
         )
 
 
@@ -177,8 +176,6 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
             'providers',
             'date_creation',
             'date_last_modified',
-            'bytes',
-            'dependency'
         )
 
 

@@ -109,7 +109,6 @@ class SeFirmwareFinalVersion(Resource):
         related_name='se_firmware_final_versions',
         blank=True,
     )
-    blocks = models.IntegerField(blank=True, null=True)
 
 
 class SeFirmwareOSUVersion(Resource):
@@ -193,12 +192,6 @@ class ApplicationVersion(Resource):
     firmware_key = models.CharField(max_length=255, null=True, blank=True)
     delete = models.CharField(max_length=255, null=True, blank=True)
     delete_key = models.CharField(max_length=255, null=True, blank=True)
-    bytes = models.IntegerField(blank=True, null=True)
-    dependency = models.ForeignKey(
-        Application,
-        on_delete=models.CASCADE,
-        null=True
-    )
     app = models.ForeignKey(
         Application,
         related_name='application_versions',
