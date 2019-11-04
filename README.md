@@ -27,7 +27,8 @@ to install/uninstall them as long as informations.
 
 1. Go to sources directory
 2. Activate python virtual environment by running `pipenv shell`
-3. Launch the application `python manage.py runserver`
+3. Install deps with `pipenv install`
+4. Launch the application `python manage.py runserver`
 
 ## Local configuration
 
