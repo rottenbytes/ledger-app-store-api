@@ -66,6 +66,9 @@ workflows:
             DATABASE_PORT=5432
           requires:
             - docker/build_image
+          filters:
+            tags:
+              only: /.*/
           context: dockerhub
       - docker/publish_image:
           requires:
@@ -75,3 +78,5 @@ workflows:
               only:
                 - develop
                 - master
+            tags:
+              only: /.*/
